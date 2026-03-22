@@ -1,4 +1,7 @@
+<script setup>
+import AppLayout from './components/AppLayout.vue'
+</script>
+
 <template>
-  <div id="app-root">
-  </div>
+  <AppLayout />
 </template>
