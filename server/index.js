@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 
 if (!process.env.CLIENT_ORIGIN) throw new Error('CLIENT_ORIGIN is not set');
+if (!process.env.FOUNDRY_PROJECT_ENDPOINT) throw new Error('FOUNDRY_PROJECT_ENDPOINT is not set');
+if (!process.env.FOUNDRY_AGENT_ID) throw new Error('FOUNDRY_AGENT_ID is not set');
 
 const app = express();
 const port = process.env.PORT ?? 3000;
