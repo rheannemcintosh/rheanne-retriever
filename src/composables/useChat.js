@@ -11,16 +11,20 @@ export function useChat() {
         messages.value.push({ role: 'user', text });
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/chat`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text }),
-            });
+            const res = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/chat`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text }),
+                }
+            );
 
             const data = await res.json();
 
             if (!res.ok) {
-                error.value = data.error ?? 'Something went wrong. Please try again.';
+                error.value =
+                    data.error ?? 'Something went wrong. Please try again.';
                 return;
             }
 
