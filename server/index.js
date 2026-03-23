@@ -4,7 +4,8 @@ import cors from 'cors';
 import { DefaultAzureCredential } from '@azure/identity';
 
 if (!process.env.CLIENT_ORIGIN) throw new Error('CLIENT_ORIGIN is not set');
-if (!process.env.FOUNDRY_PROJECT_ENDPOINT) throw new Error('FOUNDRY_PROJECT_ENDPOINT is not set');
+if (!process.env.FOUNDRY_PROJECT_ENDPOINT)
+    throw new Error('FOUNDRY_PROJECT_ENDPOINT is not set');
 if (!process.env.FOUNDRY_MODEL) throw new Error('FOUNDRY_MODEL is not set');
 
 const app = express();
@@ -26,7 +27,9 @@ app.post('/api/chat', async (req, res, next) => {
             return res.status(400).json({ error: 'message is required' });
         }
 
-        const { token } = await credential.getToken('https://ai.azure.com/.default');
+        const { token } = await credential.getToken(
+            'https://ai.azure.com/.default'
+        );
 
         const foundryRes = await fetch(process.env.FOUNDRY_PROJECT_ENDPOINT, {
             method: 'POST',
@@ -47,7 +50,9 @@ app.post('/api/chat', async (req, res, next) => {
 
         const data = await foundryRes.json();
 
-        const messageOutput = data.output?.find((item) => item.type === 'message');
+        const messageOutput = data.output?.find(
+            (item) => item.type === 'message'
+        );
         const content = messageOutput?.content ?? [];
 
         const reply = content
